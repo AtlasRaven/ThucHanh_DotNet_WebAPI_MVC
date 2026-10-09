@@ -1,0 +1,103 @@
+@{
+    ViewData["Title"] = "Bài tập jQuery";
+}
+
+<div class="mb-4">
+    <span class="badge text-bg-primary mb-2">Phần B · Bài 6 - Bài 10</span>
+    <h1 class="h2 fw-bold">Thực hành jQuery</h1>
+    <p class="text-secondary">Các thao tác trong phần này chạy trên trình duyệt, không gọi AJAX.</p>
+</div>
+
+<div class="row g-4">
+    <div class="col-lg-5">
+        <section class="card border-0 shadow-sm mb-4">
+            <div class="card-body p-4">
+                <h2 class="h5">Bài 6 - Bài 7 · Đọc và thay đổi nội dung</h2>
+                <label for="tenThietBiJquery" class="form-label mt-2">Tên thiết bị</label>
+                <input id="tenThietBiJquery" class="form-control" type="text" value="Loa Bluetooth" />
+                <div class="d-flex flex-wrap gap-2 mt-3">
+                    <button id="docDuLieuJquery" class="btn btn-primary" type="button">Lấy dữ liệu</button>
+                    <button id="doiNoiDungJquery" class="btn btn-outline-primary" type="button">Đổi nội dung và kiểu</button>
+                    <button id="toggleChiTietJquery" class="btn btn-outline-secondary" type="button">Ẩn/hiện</button>
+                </div>
+                <p id="ketQuaJquery" class="text-primary mt-3 mb-0" aria-live="polite"></p>
+                <div id="chiTietJquery" class="rounded bg-light p-3 mt-3">Thông tin này được ẩn/hiện bằng jQuery.</div>
+            </div>
+        </section>
+
+        <section class="card border-0 shadow-sm">
+            <div class="card-body p-4">
+                <h2 class="h5">Bài 9 · Xử lý sự kiện nhập liệu</h2>
+                <label for="tuKhoaKeyup" class="form-label">Từ khóa</label>
+                <input id="tuKhoaKeyup" class="form-control" type="search" placeholder="Nhập nội dung..." />
+                <p id="thongBaoKeyup" class="mt-3 mb-0 text-secondary" aria-live="polite">Vui lòng nhập từ khóa.</p>
+            </div>
+        </section>
+    </div>
+
+    <div class="col-lg-7">
+        <section class="card border-0 shadow-sm mb-4">
+            <div class="card-body p-4">
+                <h2 class="h5">Bài 8 · Tìm thiết bị trong danh sách tĩnh</h2>
+                <label for="tuKhoaDanhSach" class="form-label">Tìm theo tên thiết bị</label>
+                <input id="tuKhoaDanhSach" class="form-control" type="search" placeholder="Ví dụ: micro" />
+                <p id="soKetQuaDanhSach" class="small text-secondary mt-2 mb-2" aria-live="polite"></p>
+                <ul id="danhSachThietBiTinh" class="list-group">
+                    <li class="list-group-item">Loa JBL PartyBox 110</li>
+                    <li class="list-group-item">Loa Bose SoundLink Flex</li>
+                    <li class="list-group-item">Loa kiểm âm Yamaha HS5</li>
+                    <li class="list-group-item">Micro không dây Shure BLX24</li>
+                    <li class="list-group-item">Micro có dây Shure SM58</li>
+                    <li class="list-group-item">Micro thu âm Rode NT1</li>
+                    <li class="list-group-item">Mixer Yamaha MG10XU</li>
+                    <li class="list-group-item">Sound card Focusrite Scarlett 2i2</li>
+                    <li class="list-group-item">Tai nghe Audio-Technica M50x</li>
+                    <li class="list-group-item">Chân micro On-Stage MS7701B</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="card border-0 shadow-sm">
+            <div class="card-body p-4">
+                <h2 class="h5">Bài 10 · Kiểm tra form bằng jQuery</h2>
+                <form id="formThietBiJquery" novalidate>
+                    <div class="mb-3">
+                        <label for="tenFormJquery" class="form-label">Tên thiết bị</label>
+                        <input id="tenFormJquery" class="form-control" type="text" />
+                        <div class="invalid-feedback">Vui lòng nhập tên thiết bị.</div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="giaFormJquery" class="form-label">Đơn giá</label>
+                            <input id="giaFormJquery" class="form-control" type="number" min="0.01" step="0.01" />
+                            <div class="invalid-feedback">Đơn giá phải lớn hơn 0.</div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="soLuongFormJquery" class="form-label">Số lượng</label>
+                            <input id="soLuongFormJquery" class="form-control" type="number" min="1" step="1" />
+                            <div class="invalid-feedback">Số lượng phải lớn hơn 0.</div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="loaiFormJquery" class="form-label">Loại thiết bị</label>
+                        <select id="loaiFormJquery" class="form-select">
+                            <option value="">-- Chọn loại thiết bị --</option>
+                            <option value="loa">Loa</option>
+                            <option value="micro">Micro</option>
+                            <option value="xu-ly">Thiết bị xử lý âm thanh</option>
+                            <option value="phu-kien">Phụ kiện</option>
+                        </select>
+                        <div class="invalid-feedback">Vui lòng chọn loại thiết bị.</div>
+                    </div>
+                    <div id="loiFormJquery" class="alert alert-danger d-none" role="alert" aria-live="polite"></div>
+                    <div id="thanhCongFormJquery" class="alert alert-success d-none" role="status" aria-live="polite"></div>
+                    <button class="btn btn-primary" type="submit">Kiểm tra thông tin</button>
+                </form>
+            </div>
+        </section>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/jquery-part-b.js" asp-append-version="true"></script>
+}
