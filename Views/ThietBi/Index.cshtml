@@ -1,0 +1,105 @@
+@model ThietBiFilterViewModel
+@{
+    ViewData["Title"] = "Danh sách thiết bị";
+}
+
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4">
+    <div>
+        <span class="badge text-bg-primary mb-2">Repository Pattern · Bài 1 - Bài 11</span>
+        <h1 class="h2 fw-bold mb-1">Danh sách thiết bị</h1>
+        <p class="text-secondary mb-0">Tìm kiếm, lọc loại và sắp xếp thiết bị.</p>
+    </div>
+    <a class="btn btn-primary" asp-action="Create">Thêm thiết bị</a>
+</div>
+
+@if (TempData["ThongBao"] is string thongBao)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @thongBao
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Đóng"></button>
+    </div>
+}
+
+<section class="card border-0 shadow-sm mb-4">
+    <div class="card-body p-4">
+        <form asp-action="Index" method="get">
+            <div class="row g-3 align-items-end">
+                <div class="col-lg-4">
+                    <label asp-for="Keyword" class="form-label">Tìm theo tên</label>
+                    <input asp-for="Keyword" class="form-control" placeholder="Nhập tên thiết bị..." />
+                </div>
+                <div class="col-lg-3">
+                    <label asp-for="LoaiId" class="form-label">Loại thiết bị</label>
+                    <select asp-for="LoaiId" class="form-select">
+                        <option value="">Tất cả loại</option>
+                        @foreach (var loai in Model.LoaiThietBis)
+                        {
+                            <option value="@loai.LoaiThietBiId">@loai.TenLoai</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-lg-3">
+                    <label asp-for="SortBy" class="form-label">Sắp xếp</label>
+                    <select asp-for="SortBy" class="form-select">
+                        <option value="ten">Tên A-Z</option>
+                        <option value="gia_tang">Giá tăng dần</option>
+                        <option value="gia_giam">Giá giảm dần</option>
+                        <option value="ngay_moi">Ngày nhập mới nhất</option>
+                    </select>
+                </div>
+                <div class="col-lg-2 d-grid">
+                    <button class="btn btn-outline-primary" type="submit">Áp dụng</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</section>
+
+<section class="card border-0 shadow-sm">
+    <div class="card-header bg-white py-3">
+        <strong>Kết quả</strong>
+        <span class="text-secondary">(@Model.ThietBis.Count thiết bị)</span>
+    </div>
+    @if (Model.ThietBis.Count == 0)
+    {
+        <div class="card-body">
+            <div class="alert alert-warning mb-0">Không tìm thấy thiết bị phù hợp.</div>
+        </div>
+    }
+    else
+    {
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Tên thiết bị</th>
+                        <th scope="col">Loại</th>
+                        <th scope="col" class="text-end">Đơn giá</th>
+                        <th scope="col" class="text-end">Số lượng</th>
+                        <th scope="col">Ngày nhập</th>
+                        <th scope="col" class="text-end">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var thietBi in Model.ThietBis)
+                    {
+                        <tr>
+                            <td>@thietBi.ThietBiId</td>
+                            <td class="fw-semibold">@thietBi.TenThietBi</td>
+                            <td><span class="badge text-bg-light">@thietBi.LoaiThietBi?.TenLoai</span></td>
+                            <td class="text-end">@thietBi.DonGia.ToString("N0") ₫</td>
+                            <td class="text-end">@thietBi.SoLuong</td>
+                            <td>@thietBi.NgayNhap.ToString("dd/MM/yyyy")</td>
+                            <td class="text-end text-nowrap">
+                                <a class="btn btn-sm btn-outline-secondary" asp-action="Details" asp-route-id="@thietBi.ThietBiId">Chi tiết</a>
+                                <a class="btn btn-sm btn-outline-primary" asp-action="Edit" asp-route-id="@thietBi.ThietBiId">Sửa</a>
+                                <a class="btn btn-sm btn-outline-danger" asp-action="Delete" asp-route-id="@thietBi.ThietBiId">Xóa</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    }
+</section>

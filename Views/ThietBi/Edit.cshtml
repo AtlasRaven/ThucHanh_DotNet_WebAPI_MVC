@@ -1,0 +1,27 @@
+@model ThietBi
+@{
+    ViewData["Title"] = "Cập nhật thiết bị";
+}
+
+<div class="mb-4">
+    <span class="badge text-bg-primary mb-2">Bài 4 · Cập nhật</span>
+    <h1 class="h2 fw-bold">Cập nhật thiết bị</h1>
+</div>
+
+<section class="card border-0 shadow-sm">
+    <div class="card-body p-4">
+        <form asp-action="Edit" asp-route-id="@Model.ThietBiId" method="post">
+            <input asp-for="ThietBiId" type="hidden" />
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+            <partial name="_ThietBiFormFields" model="Model" view-data="ViewData" />
+            <div class="d-flex gap-2 mt-4">
+                <button class="btn btn-primary" type="submit">Lưu thay đổi</button>
+                <a class="btn btn-outline-secondary" asp-action="Index">Hủy</a>
+            </div>
+        </form>
+    </div>
+</section>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

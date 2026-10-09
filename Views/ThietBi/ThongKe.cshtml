@@ -1,0 +1,100 @@
+@model ThietBiThongKeViewModel
+@{
+    ViewData["Title"] = "Thống kê thiết bị";
+}
+
+<div class="mb-4">
+    <span class="badge text-bg-primary mb-2">Bài 12 - Bài 15 · Báo cáo Repository</span>
+    <h1 class="h2 fw-bold">Thống kê thiết bị</h1>
+    <p class="text-secondary">Các phép tổng hợp dữ liệu được thực hiện trong ThietBiRepository.</p>
+</div>
+
+<div class="row g-3 mb-4">
+    <div class="col-sm-6 col-xl">
+        <article class="card h-100 border-0 shadow-sm">
+            <div class="card-body">
+                <div class="small text-secondary">Tổng số mặt hàng</div>
+                <div class="fs-3 fw-bold">@Model.TongQuan.TongSoMatHang</div>
+            </div>
+        </article>
+    </div>
+    <div class="col-sm-6 col-xl">
+        <article class="card h-100 border-0 shadow-sm">
+            <div class="card-body">
+                <div class="small text-secondary">Tổng số lượng sản phẩm</div>
+                <div class="fs-3 fw-bold">@Model.TongQuan.TongSoLuongSanPham</div>
+            </div>
+        </article>
+    </div>
+    <div class="col-sm-6 col-xl">
+        <article class="card h-100 border-0 shadow-sm">
+            <div class="card-body">
+                <div class="small text-secondary">Giá cao nhất</div>
+                <div class="fs-5 fw-bold">@((Model.TongQuan.GiaCaoNhat ?? 0m).ToString("N0")) ₫</div>
+            </div>
+        </article>
+    </div>
+    <div class="col-sm-6 col-xl">
+        <article class="card h-100 border-0 shadow-sm">
+            <div class="card-body">
+                <div class="small text-secondary">Giá thấp nhất</div>
+                <div class="fs-5 fw-bold">@((Model.TongQuan.GiaThapNhat ?? 0m).ToString("N0")) ₫</div>
+            </div>
+        </article>
+    </div>
+    <div class="col-sm-6 col-xl">
+        <article class="card h-100 border-0 shadow-sm">
+            <div class="card-body">
+                <div class="small text-secondary">Tổng giá trị hàng tồn</div>
+                <div class="fs-5 fw-bold text-primary">@Model.TongQuan.TongGiaTriHangTon.ToString("N0") ₫</div>
+            </div>
+        </article>
+    </div>
+</div>
+
+<section class="card border-0 shadow-sm mb-4">
+    <div class="card-header bg-white py-3">
+        <h2 class="h5 mb-0">Số lượng thiết bị theo loại</h2>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+            <thead class="table-light">
+                <tr>
+                    <th scope="col">Loại thiết bị</th>
+                    <th scope="col" class="text-end">Số mặt hàng</th>
+                    <th scope="col" class="text-end">Tổng số lượng</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var thongKe in Model.TheoLoai)
+                {
+                    <tr>
+                        <td>@thongKe.TenLoai</td>
+                        <td class="text-end">@thongKe.SoMatHang</td>
+                        <td class="text-end">@thongKe.TongSoLuong</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<section class="card border-0 shadow-sm">
+    <div class="card-body p-4">
+        <h2 class="h5">Thiết bị có đơn giá cao nhất</h2>
+        @if (Model.ThietBiGiaCaoNhat is null)
+        {
+            <p class="text-secondary mb-0">Chưa có dữ liệu thiết bị.</p>
+        }
+        else
+        {
+            <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
+                <div>
+                    <div class="fw-semibold">@Model.ThietBiGiaCaoNhat.TenThietBi</div>
+                    <div class="small text-secondary">@Model.ThietBiGiaCaoNhat.LoaiThietBi?.TenLoai</div>
+                </div>
+                <div class="fs-5 fw-bold text-primary">@Model.ThietBiGiaCaoNhat.DonGia.ToString("N0") ₫</div>
+            </div>
+        }
+    </div>
+</section>

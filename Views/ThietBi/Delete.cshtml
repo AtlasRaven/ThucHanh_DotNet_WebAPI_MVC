@@ -1,0 +1,29 @@
+@model ThietBi
+@{
+    ViewData["Title"] = "Xóa thiết bị";
+}
+
+<div class="mb-4">
+    <span class="badge text-bg-danger mb-2">Bài 5 · Xóa</span>
+    <h1 class="h2 fw-bold">Xác nhận xóa thiết bị</h1>
+</div>
+
+<section class="card border-danger shadow-sm">
+    <div class="card-body p-4">
+        <div class="alert alert-warning">Bạn có chắc chắn muốn xóa thiết bị này không? Thao tác không thể hoàn tác.</div>
+        <dl class="row mb-4">
+            <dt class="col-sm-3">Tên thiết bị</dt>
+            <dd class="col-sm-9">@Model.TenThietBi</dd>
+            <dt class="col-sm-3">Loại thiết bị</dt>
+            <dd class="col-sm-9">@Model.LoaiThietBi?.TenLoai</dd>
+            <dt class="col-sm-3">Đơn giá</dt>
+            <dd class="col-sm-9">@Model.DonGia.ToString("N0") ₫</dd>
+            <dt class="col-sm-3">Số lượng</dt>
+            <dd class="col-sm-9">@Model.SoLuong</dd>
+        </dl>
+        <form asp-action="Delete" asp-route-id="@Model.ThietBiId" method="post">
+            <button class="btn btn-danger" type="submit">Xóa thiết bị</button>
+            <a class="btn btn-outline-secondary" asp-action="Index">Quay lại</a>
+        </form>
+    </div>
+</section>
